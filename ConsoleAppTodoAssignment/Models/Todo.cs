@@ -18,7 +18,7 @@ namespace ConsoleAppTodoAssignment.Models
             set
             {
                 if(string.IsNullOrEmpty(value) || string.IsNullOrWhiteSpace(value))
-                { throw new Exception("No description entered"); }
+                { Console.WriteLine("No description entered"); }
                 description = value;
             }
         }
