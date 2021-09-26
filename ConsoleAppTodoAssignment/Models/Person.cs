@@ -40,8 +40,8 @@ namespace ConsoleAppTodoAssignment.Models
         public Person(int personID, string firstName, string lastName)
         {
             this.personID = personID;
-            this.firstName = firstName;
-            this.lastName = lastName;
+            this.FirstName = firstName;
+            this.LastName = lastName;
         }
 
 

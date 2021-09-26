@@ -34,7 +34,6 @@ namespace ConsoleAppTodoAssignment.Tests
             Assert.Equal(0, person.PersonID);
             Assert.Equal("Hans", person.FirstName);
             Assert.Equal("Öhman", person.LastName);
-
         }
     }
 }

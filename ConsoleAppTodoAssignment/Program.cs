@@ -21,6 +21,11 @@ namespace ConsoleAppTodoAssignment
             Console.WriteLine("Firstname: " + person.FirstName);
             Console.WriteLine("Lastname: " + person.LastName);
 
+            Console.Write("Enter description: ");
+            string todoTestDesc = Console.ReadLine();
+            Todo todo = new Todo(0, todoTestDesc);
+            Console.WriteLine("TODO: " + todo.Description);
+
 
         }
     }
