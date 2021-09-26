@@ -18,7 +18,7 @@ namespace ConsoleAppTodoAssignment.Models
             set
             {
                 if(string.IsNullOrEmpty(value) || string.IsNullOrWhiteSpace(value))
-                { Console.WriteLine("Bad input for FIRST NAME"); }
+                { throw new Exception("Bad input for FIRST NAME"); }
                 firstName = value;
             }
         }
@@ -28,7 +28,7 @@ namespace ConsoleAppTodoAssignment.Models
             set
             {
                 if (string.IsNullOrEmpty(value) || string.IsNullOrWhiteSpace(value))
-                { Console.WriteLine("Bad input for LAST NAME"); }
+                { throw new Exception("Bad input for LAST NAME"); }
                 lastName = value;
             }
         }
