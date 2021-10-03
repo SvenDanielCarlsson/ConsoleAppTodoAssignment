@@ -15,18 +15,17 @@ namespace ConsoleAppTodoAssignment.Tests
             Assert.Equal(01, todo.TodoID);
             Assert.Equal("a description", todo.Description);
         }
-        /*
+        
         [Theory]
         [InlineData(01, "")]
         [InlineData(01, null)]
         [InlineData(01, " ")]
         public void Todo_BadInput02(int iD, string todoDescription)
         {   //Arrange
-            Todo todo = new Todo(iD, todoDescription);
             //Act
-            Action action = () => todoDescription;
+            Todo todo = new Todo(iD, todoDescription);
             //Assert
-            Assert.Throws<NotImplementedException>(action);
-        }*/
+            Assert.True(string.IsNullOrEmpty(todo.Description) || string.IsNullOrWhiteSpace(todo.Description));
+        }
     }
 }

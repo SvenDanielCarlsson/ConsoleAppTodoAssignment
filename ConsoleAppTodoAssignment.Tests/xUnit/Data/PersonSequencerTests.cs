@@ -11,6 +11,7 @@ namespace ConsoleAppTodoAssignment.Tests
         {
             //Arrange
             PersonSequencer personSQ = new PersonSequencer();
+            PersonSequencer.reset();
             //Act and Assert
             int forCount = 8;
             for (int i = 0; i < forCount; i++)
