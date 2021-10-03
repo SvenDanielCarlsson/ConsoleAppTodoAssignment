@@ -28,7 +28,6 @@ namespace ConsoleAppTodoAssignment.Tests
 
 
         [Fact]
-
         public void People_PersonAdd_Success()
         {
             //Arrange
@@ -54,20 +53,25 @@ namespace ConsoleAppTodoAssignment.Tests
             people.Clear();
             PersonSequencer.reset();
             //Act
+            people.PersonAdd("Mike", "Huntington");
             people.PersonAdd("", "");
             people.PersonAdd(" ", " ");
             //Assert
-            Assert.NotEqual(2, people.Size());
+            Assert.Equal("Mike", people.FindById(0).FirstName);
+            //Assert.Equal(1, people.Size());
         }*/
 
         [Fact]
         public void People_Size_Check()
         {
+            //Arrange
             People people = new People();
             people.Clear();
             PersonSequencer.reset();
+            //Act
             people.PersonAdd("Hans", "Hasse");
             people.PersonAdd("Hassan", "Hansen");
+            //Assert
             Assert.Equal(2, people.Size());
         }
    
