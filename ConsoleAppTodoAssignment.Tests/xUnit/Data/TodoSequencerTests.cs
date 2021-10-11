@@ -10,7 +10,7 @@ namespace ConsoleAppTodoAssignment.Tests
         public void TodoSequencer_IncreaseTodoId()
         {
             //Arrange
-            //TodoSequencer.resetTodoId();
+            TodoSequencer.resetTodoId();
             TodoSequencer todoSQ = new TodoSequencer();
             int forCount = 8;
             //Act and Assert

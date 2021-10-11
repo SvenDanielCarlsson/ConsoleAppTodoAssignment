@@ -14,7 +14,7 @@ namespace ConsoleAppTodoAssignment.Data
         {
             bool foundPerson = false;
 
-            if (thePerson.Length < 1) { foundPerson = true; personId = 0; }
+            if (thePerson.Length < 1) { throw new ArgumentException("Sorry, the list is empty"); } // Thought this through?
             while(foundPerson == false)
             {
                 for(int find = 0;  find < thePerson.Length; find++ )
@@ -22,15 +22,14 @@ namespace ConsoleAppTodoAssignment.Data
                     if (thePerson[find].PersonID == personId)
                     {
                         foundPerson = true;
-                        Console.WriteLine($"ID: {thePerson[personId].PersonID}\n" +         //DELETE THESE LATER?
+                        Console.WriteLine($"ID: {thePerson[personId].PersonID}\n" +         //DELETE THESE LATER
                                             $"First Name: {thePerson[personId].FirstName}\n" +
                                             $"Last Name: {thePerson[personId].LastName}");
                     } 
                 }
                 if (foundPerson == false)
                 {
-                    Console.WriteLine("Try another ID: ");
-                    personId = Convert.ToInt32(Console.ReadLine());
+                    throw new ArgumentException("Id does not exist");
                 }
             }
             return thePerson[personId];
@@ -42,17 +41,14 @@ namespace ConsoleAppTodoAssignment.Data
             Array.Resize(ref thePerson, thePerson.Length + 1);
             thePerson[thePerson.Length - 1] = person;
 
-            //Console.Clear();
-            Console.WriteLine($"Added person\n\nID: {person.PersonID}\nFirst Name: {person.FirstName}\nLast Name: {person.LastName}");
-
-            return thePerson[thePerson.Length -1]; //OR return person ?
+            return thePerson[thePerson.Length -1];
         }
         public void Clear()
         {
             Array.Clear(thePerson, 0, thePerson.Length);
             Array.Resize(ref thePerson, 0);
-            //thePerson = new Person[0]; probably bad idea?
             PersonSequencer.reset();
+            //thePerson = new Person[0];    //probably bad idea?
         }
     }
 }

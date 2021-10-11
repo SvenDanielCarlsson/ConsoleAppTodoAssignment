@@ -7,7 +7,7 @@ namespace ConsoleAppTodoAssignment.Tests
     public class TodoTests
     {
         [Fact]
-        public void Todo_GoodInput01()
+        public void Todo_Description_GoodInput()
         {   //Assemble
             //Act
             Todo todo = new Todo(01,"a description");
@@ -17,15 +17,17 @@ namespace ConsoleAppTodoAssignment.Tests
         }
         
         [Theory]
-        [InlineData(01, "")]
-        [InlineData(01, null)]
-        [InlineData(01, " ")]
-        public void Todo_BadInput02(int iD, string todoDescription)
+        [InlineData("")]
+        [InlineData(" ")]
+        [InlineData(null)]
+        public void Todo_Description_UnacceptableInput(string todoDescription)
         {   //Arrange
+            //Data.TodoSequencer.resetTodoId();
+            int id = 1;
             //Act
-            Todo todo = new Todo(iD, todoDescription);
+            ArgumentException resultDescription = Assert.Throws<ArgumentException>(() => new Todo(id, todoDescription));
             //Assert
-            Assert.True(string.IsNullOrEmpty(todo.Description) || string.IsNullOrWhiteSpace(todo.Description));
+            Assert.Equal("No description entered", resultDescription.Message);
         }
     }
 }

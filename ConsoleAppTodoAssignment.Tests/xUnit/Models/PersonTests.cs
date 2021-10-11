@@ -7,43 +7,36 @@ namespace ConsoleAppTodoAssignment.Tests
 {
     public class PersonTests
     {
-        /*
-        [Fact]
-        public void Person_Check_BadNames()
-        {
-            //Arrange, Act
-            //Data.People people = new Data.People();
-            people.Clear();
-            Person person = new Person(0, "klas", "Klasson");
-            person = new Person(0, "", "");
-            //Assert
-            Assert.NotEqual("", person.FirstName);
-            //Assert.Empty(person.LastName);
-            //Assert.NotSame(firstName, person.FirstName);
-            //Assert.Equal(string.Empty , person.FirstName);
-            //Assert.True(string.IsNullOrEmpty(person.FirstName) || string.IsNullOrWhiteSpace(person.FirstName));
-            //Assert.True(string.IsNullOrEmpty(person.LastName) || string.IsNullOrWhiteSpace(person.LastName));
-
-            //Assert.Throws<ArgumentNullException>(() => person.LastName);    //Not working
-        }*/
         [Theory]
-        [InlineData(0, "Hans", "Öhman")] //reduntant
-        public void Person_CreateWith_GoodInput01(int ID, string firstName, string lastName)
+        [InlineData("")]
+        [InlineData(" ")]
+        [InlineData(null)]
+        public void Person_NotCreated_NullEmptySpace_ForFirstName(string firstName)
         {
             //Arrange
-            //Act
-            Person person = new Person(ID, firstName, lastName);
-
-            //Assert
-            Assert.Equal(person.PersonID, ID);
-            Assert.Equal(person.FirstName, firstName);
-            Assert.Equal(person.LastName, lastName);
-            Assert.False(string.IsNullOrEmpty(person.FirstName) || string.IsNullOrWhiteSpace(person.FirstName));
-            Assert.False(string.IsNullOrEmpty(person.LastName) || string.IsNullOrWhiteSpace(person.LastName));
-
+            int personId = 1;
+            string lastName = "Hansson";
+            //Act & Assert
+            ArgumentException result_firstName = Assert.Throws<ArgumentException>(() => new Person(personId, firstName, lastName));
+            Assert.Equal("First name cannot be null, empty or whitespace", result_firstName.Message);
         }
+
+        [Theory]
+        [InlineData("")]
+        [InlineData(" ")]
+        [InlineData(null)]
+        public void Person_NotCreated_NullEmptySpace_ForLastName(string lastName)
+        {
+            //Arrange
+            int personId = 1;
+            string firstName = "Mats";
+            //Act & Assert
+            ArgumentException result_lastName = Assert.Throws<ArgumentException>(() => new Person(personId, firstName, lastName));
+            Assert.Equal("Last name cannot be null, empty or whitespace", result_lastName.Message);
+        }
+
         [Fact]
-        public void Person_CreatedWith_GoodInput02()
+        public void Person_CreatedWith_GoodInput()
         {
             //Arrange
             int personId = 0;

@@ -10,10 +10,10 @@ namespace ConsoleAppTodoAssignment.Tests
         public void PersonSequencer_IncreasePersonId()
         {
             //Arrange
-            PersonSequencer personSQ = new PersonSequencer();
             PersonSequencer.reset();
-            //Act and Assert
+            PersonSequencer personSQ = new PersonSequencer();
             int forCount = 8;
+            //Act and Assert
             for (int i = 0; i < forCount; i++)
             {
                 PersonSequencer.nextPersonId();
