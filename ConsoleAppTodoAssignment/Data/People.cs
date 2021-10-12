@@ -7,7 +7,7 @@ namespace ConsoleAppTodoAssignment.Data
 {
     public class People
     {
-        private static Person[] thePerson = new Person[0]; //check how to declare as not EMPTY or NULL
+        private static Person[] thePerson = new Person[0];
         public int Size() { return thePerson.Length; }
         public Person[] FindAll() { return thePerson; }
         public Person FindById(int personId)
@@ -22,9 +22,7 @@ namespace ConsoleAppTodoAssignment.Data
                     if (thePerson[find].PersonID == personId)
                     {
                         foundPerson = true;
-                        Console.WriteLine($"ID: {thePerson[personId].PersonID}\n" +         //DELETE THESE LATER
-                                            $"First Name: {thePerson[personId].FirstName}\n" +
-                                            $"Last Name: {thePerson[personId].LastName}");
+                        break;
                     } 
                 }
                 if (foundPerson == false)
@@ -38,17 +36,33 @@ namespace ConsoleAppTodoAssignment.Data
         {
             Person person = new Person(PersonSequencer.nextPersonId(), firstName, lastName);
 
-            Array.Resize(ref thePerson, thePerson.Length + 1);
-            thePerson[thePerson.Length - 1] = person;
+            Array.Resize(ref thePerson, thePerson.Length + 1);  //Increase array, next row sets new person last at array 
+            thePerson[thePerson.Length - 1] = person;           //length counts 1-forward, array index counts 0-forward, thus minus 1
 
             return thePerson[thePerson.Length -1];
-        }
+        }//End of PersonAdd
         public void Clear()
         {
             Array.Clear(thePerson, 0, thePerson.Length);
             Array.Resize(ref thePerson, 0);
-            PersonSequencer.reset();
-            //thePerson = new Person[0];    //probably bad idea?
         }
+        public bool RemovePerson(int personId)  //If removed object has overload, will it stay if repacing index object has no overload?
+        {
+            bool foundPerson = false;
+            for (int i = 0; i < thePerson.Length; i++)
+            {
+                if (thePerson[i].PersonID == personId)
+                {
+                    foundPerson = true;
+                    for (int offset = i + 1; offset < thePerson.Length; offset++, i++)
+                    {
+                        thePerson[i] = thePerson[offset];   //moves array elements one step back, starting from thePerson[i]
+                    }                                       //until offset reaches thePerson.length
+                    Array.Resize(ref thePerson, thePerson.Length - 1);
+                }
+            }
+            if (foundPerson == false) { throw new ArgumentException("Person ID does not exist and can't be deleted"); }
+            return foundPerson;   //Can be used to let user know Removal went well, otherwise replace bool with void
+        }//End of RemovePerson
     }
 }

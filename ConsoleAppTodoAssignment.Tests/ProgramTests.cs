@@ -5,10 +5,10 @@ namespace ConsoleAppTodoAssignment.Tests
 {
     public class ProgramTests
     {
-        [Fact]
-        public void Test2()
-        {
+        //[Fact]
+        //public void Test2()
+        //{
 
-        }
+        //}
     }
 }

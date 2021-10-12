@@ -22,8 +22,7 @@ namespace ConsoleAppTodoAssignment.Data
                     if (theTodos[find].TodoID == todoId)
                     {
                         foundTodo = true;
-                        Console.WriteLine($"Todo ID: {theTodos[todoId].TodoID}\n" +         //DELETE THESE LATER?
-                                            $"Todo description: {theTodos[todoId].Description}");
+                        break;          //Unnecessary to continue for-loop when only looking for one object
                     }
                 }
                 if (foundTodo == false)
@@ -32,7 +31,8 @@ namespace ConsoleAppTodoAssignment.Data
                 }
             }
             return theTodos[todoId];
-        }// END of FindByIdTodo
+        }//End of FindByIdTodo
+
         public Todo TodoAdd(string description)
         {
             Todo todo = new Todo(TodoSequencer.nextTodoId(), description);
@@ -40,11 +40,8 @@ namespace ConsoleAppTodoAssignment.Data
             Array.Resize(ref theTodos, theTodos.Length + 1);
             theTodos[theTodos.Length - 1] = todo;
 
-            //Console.Clear();
-            Console.WriteLine($"Added Todo\n\nID: {todo.TodoID}\nDescription: {todo.Description}");
-
-            return theTodos[theTodos.Length - 1]; //OR return todo ?
-        }
+            return theTodos[theTodos.Length - 1];
+        }//End of TodoAdd
         public Todo TodoAdd(string description, Person person)
         {
             Todo todo = new Todo(TodoSequencer.nextTodoId(), description, person);
@@ -52,16 +49,13 @@ namespace ConsoleAppTodoAssignment.Data
             Array.Resize(ref theTodos, theTodos.Length + 1);
             theTodos[theTodos.Length - 1] = todo;
 
-            Console.WriteLine($"\nTodo ID: {todo.TodoID}\nTodo Description: {todo.Description}" +
-                            $"\nAssignee first name: {todo.Assignee.FirstName}");
-            
-            return theTodos[theTodos.Length -1];
-        }
+            return theTodos[theTodos.Length - 1];
+        }//End of TodoAdd-Overload
+
         public void ClearTodo()
         {
             Array.Clear(theTodos, 0, theTodos.Length);
             Array.Resize(ref theTodos, 0);
-            TodoSequencer.resetTodoId();
         }
         public Todo[] FindByDoneStatus(bool doneStatus)
         {
@@ -75,13 +69,14 @@ namespace ConsoleAppTodoAssignment.Data
                 }
             }
             return doneTodo;
-        }
-        public Todo[] FindByAssignee(int personId) //returns todos for person who is assigned?
+        }//End of FindByDoneStatus bool
+
+        public Todo[] FindByAssignee(int personId) //return array of Todos tied to assigned personId
         {
             bool exists = false;
             Todo[] todoForAssignee = new Todo[0];
-            
-            for (int i = 0; i < theTodos.Length; i++)
+
+            for (int i = 0; i < theTodos.Length; i++)   //No break; when found, since Assignee can have several Todos
             {
                 if (theTodos[i].Assignee.PersonID == personId)
                 {
@@ -90,10 +85,10 @@ namespace ConsoleAppTodoAssignment.Data
                     exists = true;
                 }
             }
-            if(exists == false) { throw new ArgumentException($"Assignee with that ID does not exist"); }
+            if (exists == false) { throw new ArgumentException($"Assignee with that ID does not exist"); }
             return todoForAssignee;
-        }
-        public Todo[] FindByAssignee(Person assignee) //Returns array with Todos that has any person assigned to it?
+        }//End of FindByAssignee personId
+        public Todo[] FindByAssignee(Person assignee) //Returns array with Todos that has a person assigned to it
         {
             bool exists = false;
             Todo[] todoForAssignee = new Todo[0];
@@ -106,22 +101,44 @@ namespace ConsoleAppTodoAssignment.Data
                     exists = true;
                 }
             }
-            if(exists == false) { throw new ArgumentException("Person does not exist"); } //Redundant?
+            if (exists == false) { throw new ArgumentException("Person does not exist"); } //Redundant?
             return todoForAssignee;
-        }
-        //public Todo[] FindUnassignedTodoItems()
-        //{
-        //    Todo[] unnassigned = new Todo[0];
-        //    for (int i = 0; i < theTodos.Length; i++)
-        //    {
-        //        if (theTodos[i]) //if it does not contain, how?
-        //        {
-        //            Array.Resize(ref unnassigned, unnassigned.Length + 1);
-        //            unnassigned[unnassigned.Length - 1] = theTodos[i];
-        //        }
-        //    }
-        //    return unnassigned;
-        //}
+        }//End of FindByAssignee Person assignee
+
+        public Todo[] FindUnassignedTodoItems()
+        {
+            Todo[] unnassigned = new Todo[0];
+
+            for (int i = 0; i < theTodos.Length; i++)
+            {
+                if (theTodos[i].Assignee == null)
+                {
+                    Array.Resize(ref unnassigned, unnassigned.Length + 1);
+                    unnassigned[unnassigned.Length - 1] = theTodos[i];
+                }
+            }
+            return unnassigned;
+        }//End of FindUnassignedTodoItems
+
+        public bool RemoveTodo(int todoID)
+        {
+            bool foundTodo = false;
+            for (int i = 0; i < theTodos.Length; i++)
+            {
+                if (theTodos[i].TodoID == todoID)
+                {
+                    foundTodo = true;
+                    for (int offset = i + 1; offset < theTodos.Length; offset++, i++)
+                    {
+                        theTodos[i] = theTodos[offset];
+                    }
+                    Array.Resize(ref theTodos, theTodos.Length - 1);
+                    break;
+                }
+            }
+            if (foundTodo == false) { throw new ArgumentException("Todo ID does not exist and can't be deleted"); }
+            return foundTodo;
+        }//End of RemoveTodo
 
     }
 }

@@ -31,7 +31,6 @@ namespace ConsoleAppTodoAssignment.Models
                 else { lastName = value; }
             }
         }
-        public Person() { }
         public Person(int personID, string firstName, string lastName)
         {
             this.personId = personID;

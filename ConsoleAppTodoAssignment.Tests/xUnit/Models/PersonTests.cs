@@ -11,7 +11,7 @@ namespace ConsoleAppTodoAssignment.Tests
         [InlineData("")]
         [InlineData(" ")]
         [InlineData(null)]
-        public void Person_NotCreated_NullEmptySpace_ForFirstName(string firstName)
+        public void Person_NullEmptyWhitespace_ForFirstName_ThrowsException(string firstName)
         {
             //Arrange
             int personId = 1;
@@ -25,7 +25,7 @@ namespace ConsoleAppTodoAssignment.Tests
         [InlineData("")]
         [InlineData(" ")]
         [InlineData(null)]
-        public void Person_NotCreated_NullEmptySpace_ForLastName(string lastName)
+        public void Person_NullEmptyWhitespace_ForLastName_ThrowsException(string lastName)
         {
             //Arrange
             int personId = 1;
@@ -49,7 +49,5 @@ namespace ConsoleAppTodoAssignment.Tests
             Assert.Equal("Hans", person.FirstName);
             Assert.Equal("Öhman", person.LastName);
         }
-
-
     }
 }
